@@ -35,17 +35,15 @@ body {
     margin: 20px 0;
 }
 
-.container span {
-    font-size: 12px;
-}
-
 .container a {
     color: #333;
     font-size: 13px;
     text-decoration: none;
     margin: 15px 0 10px;
 }
-
+.createAccountTitle{
+    color: white;
+}
 .container button {
     background-color: #ff9f0d;
     color: black;

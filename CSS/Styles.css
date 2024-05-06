@@ -26,6 +26,7 @@ body{
   color: var(--text-color);
   width: 100%;
   min-width: 440px;
+  position: relative;
 }
 
 header{
@@ -138,6 +139,7 @@ header .nav-icons span{
   border-radius: 3rem;
   box-shadow: var(--main-color) 0px 1px 25px; 
   margin-left: 15px;
+  position: relative;
 }
 .profile i{
   vertical-align: middle;
@@ -242,8 +244,8 @@ section{
   border: none;
   border-radius: 10px;
   height: 50px;
-  display: flex; /* Add display flex to center text vertically */
-  padding: 0 20px; /* Add padding for better spacing */
+  display: flex; 
+  padding: 0 20px;
   font-size: 16px;
 }
 
@@ -269,13 +271,87 @@ section{
 
 .cart-item-info h4, .cart-item-info p {
   margin: 0;
-  width: 200px; /* Set width */
+  width: 200px;
 }
 
 .cart-item-remove {
   cursor: pointer;
-  width: 90%; /* Set width */
+  width: 90%; 
 }
+
+/* Customer Dashboard */
+.dashboard {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.94);
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px auto;
+  width: 300px;
+  z-index: 100000;
+  right: -100px;
+  top: 40px;
+  transition: all 0.5s ease-in-out;
+}
+.dashboard p, .dashboard h2{
+  color: white;
+}
+.dashboard-content {
+  text-align: center;
+}
+
+.dashboard-content h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+#account-info {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+#account-info p {
+  margin-bottom: 10px;
+}
+
+#update-account {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: block;
+  margin: auto;
+  width: 90%;
+}
+
+#update-account:hover {
+  background-color: #2ab831;
+}
+
+.logout {
+  margin-top: 20px;
+}
+
+.logout a {
+  background-color: #da2316;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  transition: background-color 0.3s ease;
+  width: 90%;
+}
+
+.logout a:hover {
+  background-color: #d32f2f;
+}
+
 
 .home{
   position: relative;

@@ -1,3 +1,27 @@
+<?php
+session_start(); // Start the session
+
+// Include database connection
+include_once 'connection.php';
+
+// Check if email is passed from CustomerSignInUp.php
+if(isset($_GET['email'])) {
+    $_SESSION['email'] = $_GET['email'];
+}
+
+// Check if email is set, if not, set it to null
+$_SESSION['email'] = $_SESSION['email'] ?? null;
+
+// Logout logic
+if(isset($_GET['logout'])) {
+    // Unset the email session variable
+    unset($_SESSION['email']);
+    // Redirect to the sign-in page
+    header("Location: CustomerSignInUp.php");
+    exit(); // Ensure script execution stops after redirection
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,6 +63,48 @@
       
     <div class="profile">
       <i class='bx bx-user'></i>
+      <!-- Customer Dashboard -->
+<section class="dashboard" id="dashboard" style="display: none;">
+  <div class="dashboard-content">
+    <h2>Account Information</h2>
+    <div id="account-info">
+      <?php
+      // Fetch account information
+      if ($_SESSION['email'] !== null) {
+          $email = $_SESSION['email'];
+          $sql = "SELECT * FROM customerinfo WHERE email = '$email'";
+          $result = $conn->query($sql);
+
+          if ($result->num_rows > 0) {
+              // Output data of each row
+              while($row = $result->fetch_assoc()) {
+                  echo "<p><strong>First Name:</strong> " . $row["firstName"]. "</p>";
+                  echo "<p><strong>Last Name:</strong> " . $row["lastName"]. "</p>";
+                  echo "<p><strong>Dorm Block:</strong> " . $row["dormBlock"]. "</p>";
+                  echo "<p><strong>Dorm Number:</strong> " . $row["dormNumber"]. "</p>";
+                  echo "<p><strong>Balance:</strong> " . $row["balance"]. "</p>";
+                  echo "<p><strong>Email:</strong> " . $row["email"]. "</p>";
+    
+                  // Password should not be displayed, but you can include it here if needed
+              }
+              // Logout link
+              echo "<button id='update-account'>Update Account</button>
+                    <div class='logout'>
+                      <a href='?logout=true'>Logout</a>
+                    </div>";
+          } else {
+              echo "0 results";
+          }
+      } else {
+          echo "<p>Please log in to view account information.</p>";
+          // Adding a login button if not logged in
+          echo '<a href="CustomerSignInUp.php" class="btn">Login</a>';
+      }
+      ?>
+    </div>
+  </div>
+</section>
+
     </div>
     </div>
     
@@ -55,9 +121,7 @@
       <p>Total: <span id="cart-count">0</span> items</p>
     </div>
   </div>
-  
 
-    
     <!-- Home -->
     <section class="home" id="home">
       <div class="home-text">
@@ -468,6 +532,46 @@
         </div>
       </section>
 
+    <!-- Scroll Top -->
+
+    <a href="#" class="scroll">
+      <i class='bx bx-up-arrow-alt'></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+
+      <!-- Contact Us -->
+
+      <section class="contact" id="contact">
+        <div class="contact-content">
+          <div class="middle-text">
+            <h4>Contact Us</h4>
+            <h2>Call and Follow us on Social Networks</h2>
+          </div>
+          <div class="contact-text">
+            <div class="social">
+              <a href=""><i class='bx bxl-instagram-alt'></i></a>
+              <a href=""><i class='bx bxl-facebook'></i></a>
+              <a href=""><i class='bx bxl-tiktok'></i></a>
+              <a href=""><i class='bx bxl-github'></i></a>
+              <a href=""><i class='bx bxl-youtube'></i></a>
+            </div>
+            <div class="details">
+              <div class="main-d">
+                <a href=""><i class='bx bxs-location-plus'></i>Inside the HU Stadium</a>
+              </div>
+              <div class="main-d">
+                <a href=""><i class='bx bx-mobile-alt'></i>(+251) 97667767</a>
+              </div>
+              <div class="main-d">
+                <a href=""><i class='bx bxs-envelope'></i>kt@hotmail.com</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Copyright -->
 
       <section class="copyright">
@@ -476,5 +580,58 @@
       
     </footer>
   <script src="JS/Script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const loggedIn = "<?php echo $_SESSION['email'] !== null ? 'true' : 'false'; ?>";
+      const profileIcon = document.querySelector(".profile");
+
+      profileIcon.addEventListener("click", function() {
+        if (loggedIn) {
+          // Show the dashboard section
+          const dashboardSection = document.getElementById("dashboard");
+          if(dashboardSection.style.display =="none"){
+            dashboardSection.style.display = "block";
+          }
+          else{
+            dashboardSection.style.display = "none";
+          }
+          
+
+          // Fetch and display account information
+          fetchAccountInfo();
+        } else {
+          // If not logged in, redirect to sign-in page
+          window.location.href = "CustomerSignInUp.php";
+        }
+      });
+
+      function fetchAccountInfo() {
+        const accountInfoDiv = document.getElementById("account-info");
+        const email = "<?php echo $_SESSION['email']; ?>";
+        
+        // Check if email is provided
+        if(email !== null) {
+          // Fetch account information
+          fetch("fetch_account_info.php?email=" + email)
+            .then(response => response.json())
+            .then(data => {
+              // Populate account information
+              accountInfoDiv.innerHTML = `
+                <p><strong>Name:</strong> ${data.name}</p>
+                <p><strong>Email:</strong> ${data.email}</p>
+                <p><strong>Phone:</strong> ${data.phone}</p>
+                <p><strong>Address:</strong> ${data.address}</p>
+              `;
+            })
+            .catch(error => {
+              console.error('Error fetching account information:', error);
+            });
+        } else {
+          accountInfoDiv.innerHTML = "<p>Please log in to view account information.</p>";
+        }
+      }
+    });
+  </script>
+
 </body>
 </html>
