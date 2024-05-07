@@ -314,7 +314,7 @@ section{
 }
 
 #update-account {
-  background-color: #4caf50;
+  background-color: rgb(52, 52, 224);
   color: white;
   border: none;
   padding: 10px 20px;
@@ -326,9 +326,19 @@ section{
   margin: auto;
   width: 90%;
 }
+.login{
+  background-color: rgb(49, 226, 49);
+  text-align: center;
+  display: block;
+  margin: auto;
+  color: white;
+  height: 50px;
+  width: 80%;
+  border-radius: 10px;
+}
 
 #update-account:hover {
-  background-color: #2ab831;
+  background-color: #3a2fdd;
 }
 
 .logout {
@@ -950,7 +960,7 @@ footer{
       grid-template-columns: repeat(2, 1fr);
       gap: 2rem;
       align-items: center;
-      justify-content: center; /* Align items horizontally to the center */
+      justify-content: center;
       margin-top: 4rem;
       align-items: center;
     }

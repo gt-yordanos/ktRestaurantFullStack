@@ -198,18 +198,3 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
-// document.addEventListener('DOMContentLoaded', function () {
-//   const profileButton = document.querySelector('.profile');
-//   const dashboard = document.querySelector('.dashboard');
-
-//   // Initially hide the dashboard
-
-//   profileButton.addEventListener('click', function () {
-//       // Toggle the display of the dashboard
-//       if (dashboard.style.right === '-1000px') {
-//           dashboard.style.right = '-100px;';
-//       } else {
-//           dashboard.style.right = '-1000px';
-//       }
-//   });
-// });

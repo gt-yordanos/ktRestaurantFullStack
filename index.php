@@ -1,10 +1,9 @@
 <?php
-session_start(); // Start the session
+session_start();
 
-// Include database connection
 include_once 'connection.php';
 
-// Check if email is passed from CustomerSignInUp.php
+
 if(isset($_GET['email'])) {
     $_SESSION['email'] = $_GET['email'];
 }
@@ -14,11 +13,9 @@ $_SESSION['email'] = $_SESSION['email'] ?? null;
 
 // Logout logic
 if(isset($_GET['logout'])) {
-    // Unset the email session variable
     unset($_SESSION['email']);
-    // Redirect to the sign-in page
-    header("Location: CustomerSignInUp.php");
-    exit(); // Ensure script execution stops after redirection
+    header('index.html');
+    exit(); 
 }
 ?>
 
@@ -98,7 +95,7 @@ if(isset($_GET['logout'])) {
       } else {
           echo "<p>Please log in to view account information.</p>";
           // Adding a login button if not logged in
-          echo '<a href="CustomerSignInUp.php" class="btn">Login</a>';
+          echo '<a href="CustomerSignInUp.php" class="login">Login</a>';
       }
       ?>
     </div>
@@ -497,46 +494,7 @@ if(isset($_GET['logout'])) {
     <a href="#" class="scroll">
       <i class='bx bx-up-arrow-alt'></i>
     </a>
-
-    <!-- Footer -->
-    <footer>
-
-      <!-- Contact Us -->
-
-      <section class="contact" id="contact">
-        <div class="contact-content">
-          <div class="middle-text">
-            <h4>Contact Us</h4>
-            <h2>Call and Follow us on Social Networks</h2>
-          </div>
-          <div class="contact-text">
-            <div class="social">
-              <a href=""><i class='bx bxl-instagram-alt'></i></a>
-              <a href=""><i class='bx bxl-facebook'></i></a>
-              <a href=""><i class='bx bxl-tiktok'></i></a>
-              <a href=""><i class='bx bxl-github'></i></a>
-              <a href=""><i class='bx bxl-youtube'></i></a>
-            </div>
-            <div class="details">
-              <div class="main-d">
-                <a href=""><i class='bx bxs-location-plus'></i>Inside the HU Stadium</a>
-              </div>
-              <div class="main-d">
-                <a href=""><i class='bx bx-mobile-alt'></i>(+251) 97667767</a>
-              </div>
-              <div class="main-d">
-                <a href=""><i class='bx bxs-envelope'></i>kt@hotmail.com</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    <!-- Scroll Top -->
-
-    <a href="#" class="scroll">
-      <i class='bx bx-up-arrow-alt'></i>
-    </a>
+    
 
     <!-- Footer -->
     <footer>
