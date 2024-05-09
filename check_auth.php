@@ -20,13 +20,14 @@ if ($loggedIn) {
         $userBalance = $row['balance'];
         $dormNumber = $row['dormNumber'];
         $dormBlock = $row['dormBlock'];
-echo "$dormBlock";
-         json_eechoncode(array('loggedIn' => true, 'userBalance' => $userBalance, 'dormNumber' => $dormNumber, 'dormBlock' => $dormBlock));
+
+        echo json_encode(array('loggedIn' => true, 'userBalance' => $userBalance, 'dormNumber' => $dormNumber, 'dormBlock' => $dormBlock));
     } else {
         // User not found in the database
         echo json_encode(array('error' => 'User not found'));
     }
 } else {
+    // User is not logged in
     echo json_encode(array('loggedIn' => false));
 }
 ?>
