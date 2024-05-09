@@ -189,12 +189,5 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Order button functionality (just an alert for now)
-  cartItems.addEventListener('click', (event) => {
-    if (event.target.classList.contains('order-btn')) {
-      alert('Order Placed!');
-      // You can add further functionality here, like sending the order data to a server
-      // or redirecting the user to a checkout page
-    }
-  });
+
 });

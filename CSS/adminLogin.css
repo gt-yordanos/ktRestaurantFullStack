@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+* {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+     font-family: 'Poppins', sans-serif, Arial;
+     letter-spacing: 1px;
+ }
+ body {
+     background-color: #111111;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+     height: 100vh;
+ }
+
+ .container {
+     background-color: black;
+     border-radius: 30px;
+     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+     position: relative;
+     overflow: hidden;
+     max-width: 400px; 
+     width: 90%;
+     min-height: 480px;
+     border: solid white;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+ }
+
+ .container p {
+     font-size: 14px;
+     line-height: 20px;
+     letter-spacing: 0.3px;
+     margin: 20px 0;
+ }
+
+ .container a {
+     color: #333;
+     font-size: 13px;
+     text-decoration: none;
+     margin: 15px 0 10px;
+ }
+ .container form {
+     background-color: black;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+     padding: 0 40px;
+     height: 100%;
+     width: 100%;
+ }
+ .container input {
+     background-color: #212121;
+     border: none;
+     margin: 8px 0;
+     padding: 10px 15px;
+     font-size: 13px;
+     border-radius: 8px;
+     width: 100%;
+     outline: none;
+     color: white;
+ }
+ .container button {
+     background-color: #ff9f0d;
+     color: black;
+     font-size: 12px;
+     padding: 10px 45px;
+     border: 1px solid transparent;
+     border-radius: 8px;
+     font-weight: 600;
+     letter-spacing: 0.5px;
+     text-transform: uppercase;
+     margin-top: 10px;
+     cursor: pointer;
+     letter-spacing: 2px;
+ }
+ .form-container {
+     position: absolute;
+     top: 0;
+     height:100%;
+     transition: all 0.6s ease-in-out;
+ }
+ .container input {
+     color: white;
+ }
+ .signinTitle {
+     color: white;
+ }
+ @media only screen and (max-width: 900px) {
+     .container {
+       transform: scale(0.7);
+       max-width: 100%;
+       min-height: 500px;
+       min-width: 500px;
+     }
+}
+ 
+     

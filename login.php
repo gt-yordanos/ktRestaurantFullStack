@@ -15,6 +15,8 @@ function login($userType, $email, $password) {
             break;
         case 'admin':
             $tableName = 'admininfo';
+            $location = 'admin.php';
+            $locationUnsuccessful ='adminLogin.php';
             break;
         case 'menuManager':
             $tableName = 'menumanagerinfo';
@@ -43,7 +45,7 @@ function login($userType, $email, $password) {
             session_start();
             $_SESSION['email'] = $email;
             echo "<script>alert('Login Successful');</script>";
-            // Let's add a delay before redirection to ensure the alert is displayed
+            // Redirect to the successful location after a delay
             echo "<script>setTimeout(function() {";
             echo "window.location.href = '$location';";
             echo "}, 40);</script>";
@@ -56,6 +58,10 @@ function login($userType, $email, $password) {
         // Email not found
         echo "<script>alert('Email not found');</script>";
     }
+
+    // Redirect to the unsuccessful location
+    echo "<script>window.location.href = '$locationUnsuccessful';</script>";
+    exit();
 
     // Close statement and connection
     $stmt->close();
