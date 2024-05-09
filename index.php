@@ -157,7 +157,7 @@ if ($loggedIn) {
 
   </div>
   <div class="home-img">
-    <img src="Image/images-1.jpeg" alt="Shiro picture">
+    <img src="Image/Shiro.jpeg" alt="Shiro picture">
   </div>
 </section>
 
@@ -572,55 +572,59 @@ if ($loggedIn) {
 
   <script src="JS/Script.js"></script>
   <script>
-    
-      const dashboard = document.getElementById("dashboard");
-  const profileIcon = document.querySelector(".profile i");
-console.log("hey");
-  // Toggle dashboard when profile icon is clicked
-  profileIcon.addEventListener("click", function() {
+const dashboard = document.getElementById("dashboard");
+const profileIcon = document.querySelector(".profile i");
+
+// Toggle dashboard when profile icon is clicked
+profileIcon.addEventListener("click", function() {
     console.log("hey again");
     dashboard.style.display = dashboard.style.display === "none" ? "block" : "none";
-  });
+});
 
+const orderButtons = document.querySelectorAll(".s-btn a");
 
-  const orderButtons = document.querySelectorAll(".s-btn a");
-
-  orderButtons.forEach(button => {
+orderButtons.forEach(button => {
     button.addEventListener("click", function(event) {
-      event.preventDefault();
-      const loggedIn = "<?php echo $loggedIn ? 'true' : 'false'; ?>";
-      if (loggedIn === 'false') {
-        alert("Please login first to place an order.");
-      } else {
-        const foodName = this.closest(".text-box").querySelector("h3").innerText;
-        const priceText = this.closest(".text-box").querySelector(".price h6").innerText;
-        const price = parseFloat(priceText.replace(' Br', ''));
-        if (<?php echo $userBalance; ?> >= price) {
-          showOrderPopup(foodName, price);
-        } else {
-          alert("Insufficient balance to place this order.");
-        }
-      }
+        event.preventDefault();
+        fetch("check_auth.php")
+        .then(response => response.json())
+        .then(data => {
+            if (data.loggedIn) {
+                const foodName = this.closest(".text-box").querySelector("h3").innerText;
+                const priceText = this.closest(".text-box").querySelector(".price h6").innerText;
+                const price = parseFloat(priceText.replace(' Br', ''));
+                console.log(data.userBalance);
+                if (data.userBalance >= price) {
+                    showOrderPopup(foodName, price, data.dormNumber, data.dormBlock);
+                } else {
+                    alert("Insufficient balance to place this order.");
+                }
+            } else {
+                alert("Please login first to place an order.");
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching user data:", error);
+            alert("An error occurred while fetching user data. Please try again later.");
+        });
     });
-  });
+});
 
-  
-
-  function showOrderPopup(foodName, price) {
+function showOrderPopup(foodName, price, dormNumber, dormBlock) {
     const popupDiv = document.createElement("div");
     popupDiv.classList.add("popup");
     popupDiv.innerHTML = `
-      <div class="popup-content">
-        <h2>Place Order</h2>
-        <label for="quantity">Quantity:</label>
-        <input type="number" min="1" id="quantity" value="1"name="quantity" required>
-        <label for="dormBlock">Dorm Block:</label>
-        <input type="text" id="dormBlock" name="dormBlock" value = "<?php echo $dormBlock; ?>" required>
-        <label for="dormNumber">Dorm Number:</label>
-        <input type="text" id="dormNumber" name="dormNumber" value=" <?php echo $dormNumber; ?>" required>
-        <button id="submitOrderBtn">Submit Order</button>
-        <button id="closePopupBtn">Close</button>
-      </div>
+        <div class="popup-content">
+            <h2>Place Order</h2>
+            <label for="quantity">Quantity:</label>
+            <input type="number" min="1" id="quantity" value="1" name="quantity" required>
+            <label for="dormBlock">Dorm Block:</label>
+            <input type="text" id="dormBlock" name="dormBlock" value="${dormBlock}" required>
+            <label for="dormNumber">Dorm Number:</label>
+            <input type="text" id="dormNumber" name="dormNumber" value="${dormNumber}" required>
+            <button id="submitOrderBtn">Submit Order</button>
+            <button id="closePopupBtn">Close</button>
+        </div>
     `;
     document.body.appendChild(popupDiv);
 
@@ -628,42 +632,39 @@ console.log("hey");
     const closePopupBtn = popupDiv.querySelector("#closePopupBtn");
 
     submitOrderBtn.addEventListener("click", function() {
-      const quantity = parseInt(document.getElementById("quantity").value);
-      const dormNumber = document.getElementById("dormNumber").value;
-      const dormBlock = document.getElementById("dormBlock").value;
-
-      // Send order data to server
-      fetch("submitOrder.php", {
-        method: "POST",
-        body: JSON.stringify({
-          foodName: foodName,
-          price: price,
-          quantity: quantity,
-          dormNumber: dormNumber,
-          dormBlock: dormBlock
+        const quantity = parseInt(document.getElementById("quantity").value);
+        // Send order data to server
+        fetch("submitOrder.php", {
+            method: "POST",
+            body: JSON.stringify({
+                foodName: foodName,
+                price: price,
+                quantity: quantity,
+                dormNumber: dormNumber,
+                dormBlock: dormBlock
+            })
         })
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          alert("Order placed successfully!");
-          // Close the popup
-          popupDiv.remove();
-        } else {
-          alert("Failed to place order. Please try again later.");
-        }
-      })
-      .catch(error => {
-        console.error("Error submitting order:", error);
-        alert("An error occurred while placing the order. Please try again later.");
-      });
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Order placed successfully!");
+                // Close the popup
+                popupDiv.remove();
+            } else {
+                alert("Failed to place order. Please try again later.");
+            }
+        })
+        .catch(error => {
+            console.error("Error submitting order:", error);
+            alert("An error occurred while placing the order. Please try again later.");
+        });
     });
 
     closePopupBtn.addEventListener("click", function() {
-      popupDiv.remove();
+        popupDiv.remove();
     });
-  }
+}
 
-  </script>
+</script>
 </body>
 </html>
