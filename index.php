@@ -35,6 +35,17 @@ if ($loggedIn) {
         exit();
     }
 }
+
+$sql = "SELECT * FROM foodinfo WHERE activated = 1";
+$result = $conn->query($sql);
+
+$foods = array();
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $foods[] = $row;
+    }
+}
 ?>
 
 
@@ -103,7 +114,7 @@ if ($loggedIn) {
                       echo "<p><strong>Email:</strong> " . $row["email"] . "</p>";
                   }
                   // Logout link
-                  echo "<button id='update-account'>Update Account</button>
+                  echo "<button id='update-account' >Update Account</button>
                         <div class='logout'>
                           <a href='?logout=true'>Logout</a>
                         </div>";
@@ -157,7 +168,7 @@ if ($loggedIn) {
 
   </div>
   <div class="home-img">
-    <img src="Image/Shiro.jpeg" alt="Shiro picture">
+    <img src="Image/Home.jpeg" alt="Shiro picture">
   </div>
 </section>
 
@@ -184,7 +195,7 @@ if ($loggedIn) {
 <!-- About us -->
 <section class="about" id="about">
   <div class="about-img">
-    <img src="Image/images.jpeg" alt="">
+    <img src="Image/About.jpeg" alt="">
   </div>
   <div class="about-text">
     <h2>Living well begins <br> with eating well</h2>
@@ -198,184 +209,46 @@ if ($loggedIn) {
   </div>
 </section>
 
-<!-- Menu -->
+<!-- Menu section -->
 <section class="menu" id="menu">
-  <div class="middle-text">
-    <h4>Our Menu</h4>
-    <h2>Lets Check Some of Our Delicious Dishes</h2>
-  </div>
-  <div class="menu-content">
-
-    <div class="row">
-      <div class="img-box">
-        <img src="Image/R (1).jpg" alt="">
-      </div>
-      <div class="text-box">
-        <h3>Shiro</h3>
-        <p>Lorem ipsum dolor sit amet consectetur.</p>
-        <div class="in-text">
-        <div class="price">
-          <h6>50.00 Br</h6>
-        </div>
-        <div class="s-btn">
-          <a href="#">Order now</a>
-        </div>
-        <div class="top-icon">
-          <a href="#"><i class='bx bxs-cart-add'></i></a>
-        </div>
-      </div>
-      </div>
+    <div class="middle-text">
+      <h4>Our Menu</h4>
+      <h2>Lets Check Some of Our Delicious Dishes</h2>
     </div>
-
-    <div class="row">
-      <div class="img-box">
-        <img src="Image/OIP.jpg" alt="">
-      </div>
-      <div class="text-box">
-        <h3>Beyeaynetu</h3>
-        <p>Lorem ipsum dolor sit amet consectetur.</p>
-        <div class="in-text">
-        <div class="price">
-          <h6>50.00 Br</h6>
-        </div>
-        <div class="s-btn">
-          <a href="#">Order now</a>
-        </div>
-        <div class="top-icon">
-          <a href="#"><i class='bx bxs-cart-add'></i></a>
-        </div>
-      </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="img-box">
-        <img src="Image/OIP (2).jpg" alt="">
-      </div>
-      <div class="text-box">
-        <h3>Pasta Beatklt</h3>
-        <p>Lorem ipsum dolor sit amet consectetur.</p>
-        <div class="in-text">
-        <div class="price">
-          <h6>50.00 Br</h6>
-        </div>
-        <div class="s-btn">
-          <a href="#">Order now</a>
-        </div>
-        <div class="top-icon">
-          <a href="#"><i class='bx bxs-cart-add'></i></a>
-        </div>
-      </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="img-box">
-        <img src="Image/maxresdefault.jpg" alt="">
-      </div>
-      <div class="text-box">
-        <h3>Pasta Be Sugo</h3>
-        <p>Lorem ipsum dolor sit amet consectetur.</p>
-        <div class="in-text">
-        <div class="price">
-          <h6>50.00 Br</h6>
-        </div>
-        <div class="s-btn">
-          <a href="">Order now</a>
-        </div>
-        <div class="top-icon">
-          <a href=""><i class='bx bxs-cart-add'></i></a>
-        </div>
-      </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="img-box">
-        <img src="Image/5906mgd73wo11.jpg" alt="">
-      </div>
-      <div class="text-box">
-        <h3>Beyeaynetu</h3>
-        <p>Lorem ipsum dolor sit amet consectetur.</p>
-        <div class="in-text">
-        <div class="price">
-          <h6>50.00 Br</h6>
-        </div>
-        <div class="s-btn">
-          <a href="#">Order now</a>
-        </div>
-        <div class="top-icon">
-          <a href="#"><i class='bx bxs-cart-add'></i></a>
-        </div>
-      </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="img-box">
-        <img src="Image/5906mgd73wo11.jpg" alt="">
-      </div>
-      <div class="text-box">
-        <h3>Beyeaynetu</h3>
-        <p>Lorem ipsum dolor sit amet consectetur.</p>
-        <div class="in-text">
-        <div class="price">
-          <h6>50.00 Br</h6>
-        </div>
-        <div class="s-btn">
-          <a href="#">Order now</a>
-        </div>
-        <div class="top-icon">
-          <a href="#"><i class='bx bxs-cart-add'></i></a>
-        </div>
-      </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="img-box">
-        <img src="Image/5906mgd73wo11.jpg" alt="">
-      </div>
-      <div class="text-box">
-        <h3>Beyeaynetu</h3>
-        <p>Lorem ipsum dolor sit amet consectetur.</p>
-        <div class="in-text">
-        <div class="price">
-          <h6>50.00 Br</h6>
-        </div>
-        <div class="s-btn">
-          <a href="#">Order now</a>
-        </div>
-        <div class="top-icon">
-          <a href="#"><i class='bx bxs-cart-add'></i></a>
-        </div>
-      </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="img-box">
-        <img src="Image/5906mgd73wo11.jpg" alt="">
-      </div>
-      <div class="text-box">
-        <h3>Beyeaynetu</h3>
-        <p>Lorem ipsum dolor sit amet consectetur.</p>
-        <div class="in-text">
-        <div class="price">
-          <h6>50.00 Br</h6>
-        </div>
-        <div class="s-btn">
-          <a href="#">Order now</a>
-        </div>
-        <div class="top-icon">
-          <a href="#"><i class="bx bx-cart"></i></a>
-        </div>
-      </div>
-      </div>
-    </div>
-    
-  </div>
-</section>
+    <div class="menu-content">  
+      <?php
+      // Display each food item fetched from the database
+      if (!empty($foods)) {
+          foreach ($foods as $food) {
+              ?>
+              <div class="row">
+                <div class="img-box">
+                  <img src="<?php echo $food['foodImage']; ?>" alt="<?php echo $food['foodName']; ?>">
+                </div>
+                <div class="text-box">
+                  <h3><?php echo $food['foodName']; ?></h3>
+                  <p><?php echo $food['description']; ?></p>
+                  <div class="in-text">
+                    <div class="price">
+                      <h6><?php echo $food['price']." Br"; ?></h6>
+                    </div>
+                    <div class="s-btn">
+                      <a href="#">Order now</a>
+                    </div>
+                    <div class="top-icon">
+                      <a href="#"><i class='bx bxs-cart-add'></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <?php
+          }
+      } else {
+          echo "No food items available.";
+      }
+      ?>
+    </div>  
+  </section>
 
 <!-- Reviews -->
 <section class="review" id="review">

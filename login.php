@@ -12,6 +12,7 @@ function login($userType, $email, $password) {
         case 'customer':
             $tableName = 'customerinfo';
             $location = 'index.php';
+            $locationUnsuccessful ='CustomerSignInUp.php';
             break;
         case 'admin':
             $tableName = 'admininfo';
@@ -19,7 +20,9 @@ function login($userType, $email, $password) {
             $locationUnsuccessful ='adminLogin.php';
             break;
         case 'menuManager':
-            $tableName = 'menumanagerinfo';
+            $tableName = 'menuManagerinfo';
+            $location = 'menuManager.php';
+            $locationUnsuccessful ='menuManagerLogin.php';
             break;
         case 'paymentManager':
             $tableName = 'paymentmanagerinfo';

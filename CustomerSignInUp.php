@@ -40,7 +40,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="form-container sign-up">
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <h1 class="createAccountTitle" style="color: white;">Create Account</h1>
-            <span class="createAccountDescription">Fill the following form in order to register.</span>
             <input type="text" placeholder="First Name" name="firstName" required>
             <input type="text" placeholder="Last Name" name="lastName" required>
             <input type="text" placeholder="Dorm Block" name="dormBlock" required>

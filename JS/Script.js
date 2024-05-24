@@ -188,6 +188,52 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
   });
+document.getElementById("orderButton").addEventListener("click", function() {
+    // Get the necessary data for the order
+    const foodName = document.getElementById("foodName").innerText;
+    const priceText = document.getElementById("price").innerText;
+    const price = parseFloat(priceText.replace(' Br', ''));
 
+    // Example: Get the quantity from a form input
+    const quantityInput = document.getElementById("quantity");
+    const quantity = parseInt(quantityInput.value);
 
+    // Example: Get the user's dorm information from the session (assuming it's stored in session variables)
+    const dormNumber = sessionStorage.getItem("dormNumber");
+    const dormBlock = sessionStorage.getItem("dormBlock");
+
+    // Prepare the order data to be sent to the server
+    const orderData = {
+        foodName: foodName,
+        price: price,
+        quantity: quantity,
+        dormNumber: dormNumber,
+        dormBlock: dormBlock
+    };
+
+    // Send an AJAX request to a PHP script to process the order
+    fetch("process_order.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(orderData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Handle the response from the server
+        if (data.success) {
+            // Order was successfully processed
+            alert("Order placed successfully!");
+        } else {
+            // Order processing failed
+            alert("Failed to place order. Please try again later.");
+        }
+    })
+    .catch(error => {
+        // Handle errors that occur during the AJAX request
+        console.error("Error processing order:", error);
+        alert("An error occurred while processing the order. Please try again later.");
+    });
+});
 });

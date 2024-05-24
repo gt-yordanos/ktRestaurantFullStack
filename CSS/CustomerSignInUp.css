@@ -27,9 +27,12 @@ body {
     min-height: 480px;
     border: solid white;
 }
-
+.createAccountDescription{
+    font-size: 8px;
+    color: white;
+}
 .container p {
-    font-size: 14px;
+    font-size: 10px;
     line-height: 20px;
     letter-spacing: 0.3px;
     margin: 20px 0;
@@ -43,6 +46,8 @@ body {
 }
 .createAccountTitle{
     color: white;
+    font-size: 16px;
+
 }
 .container button {
     background-color: #ff9f0d;

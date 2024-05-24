@@ -12,6 +12,8 @@ function fetchTableData($conn, $tableName, $primaryKey, $primaryKeyValue) {
 // Function to update table data
 function updateTableData($conn, $tableName, $primaryKey, $primaryKeyValue, $data, $userRole) {
     $setClause = '';
+    $location = ""; // Default location
+
     foreach ($data as $key => $value) {
         // Exclude the 'submit' button from the update process
         if ($key === 'submit') {
@@ -22,23 +24,27 @@ function updateTableData($conn, $tableName, $primaryKey, $primaryKeyValue, $data
             case 'admin':
                 // Allow updating all columns
                 $setClause .= "$key='$value',";
+                $location = "admin.php";
                 break;
             case 'customer':
                 // Exclude balance and activated columns
                 if ($key !== 'balance' && $key !== 'activated') {
                     $setClause .= "$key='$value',";
                 }
+                $location = "customer.php";
                 break;
             case 'menuManager':
                 // Only allow updating the foodinfo table
                 if ($tableName === 'foodinfo') {
                     $setClause .= "$key='$value',";
+                    $location = "menuManager.php";
                 }
                 break;
             case 'paymentManager':
                 // Only allow updating the balance column of customerinfo table
                 if ($tableName === 'customerinfo' && $key === 'balance') {
                     $setClause .= "$key='$value',";
+                    $location = "paymentManager.php";
                 }
                 break;
             default:
@@ -53,7 +59,11 @@ function updateTableData($conn, $tableName, $primaryKey, $primaryKeyValue, $data
     // Update table only if the SET clause is not empty
     if ($setClause !== '') {
         $sql = "UPDATE $tableName SET $setClause WHERE $primaryKey='$primaryKeyValue'";
-        return $conn->query($sql);
+        if ($conn->query($sql)) {
+            return $location;
+        } else {
+            return false; // Error updating data
+        }
     } else {
         return false; // No update needed
     }
@@ -75,9 +85,10 @@ if (isset($_GET['table']) && isset($_GET['id']) && isset($_GET['role'])) {
         // Check if form is submitted for updating
         if (isset($_POST['submit'])) {
             // Update table data with the submitted values
-            if (updateTableData($conn, $tableName, $primaryKey, $primaryKeyValue, $_POST, $userRole)) {
-                // Redirect to admin.php after successful update
-                echo "<script>alert('Data updated successfully.'); window.location.href = 'admin.php';</script>";
+            $redirectLocation = updateTableData($conn, $tableName, $primaryKey, $primaryKeyValue, $_POST, $userRole);
+            if ($redirectLocation) {
+                // Redirect to the appropriate page after successful update
+                echo "<script>alert('Data updated successfully.'); window.location.href = '$redirectLocation';</script>";
                 exit;
             } else {
                 // Handle update error
@@ -109,13 +120,6 @@ if (isset($_GET['table']) && isset($_GET['id']) && isset($_GET['role'])) {
     <link rel="stylesheet" href="CSS/admin.css">
 </head>
 <body>
-
-<div class="navbar">
-    <a href="#">Admin Dashboard</a>
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a class="logout" href="#">Logout</a>
-</div>
 
 <div class="container">
     <h2>Update Data</h2>
