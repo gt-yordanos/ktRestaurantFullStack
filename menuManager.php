@@ -17,8 +17,13 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     exit();
 }
 
-// Include database connection
+// Include the connection.php file
 include_once 'connection.php';
+
+$dbConnection = new DatabaseConnection();
+
+// Establish the connection
+$conn = $dbConnection->connect();
 
 // Fetch all tables
 $tables = array(

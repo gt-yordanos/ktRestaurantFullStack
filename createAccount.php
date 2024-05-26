@@ -1,7 +1,12 @@
 <?php
 
+// Include the connection.php file
 include_once 'connection.php';
 
+$dbConnection = new DatabaseConnection();
+
+// Establish the connection
+$conn = $dbConnection->connect();
 function createAccount($userType, $firstName, $lastName, $email, $password) {
 
     global $conn;

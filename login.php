@@ -1,7 +1,11 @@
 <?php
-// Include database connection
+// Include the connection.php file
 include_once 'connection.php';
 
+$dbConnection = new DatabaseConnection();
+
+// Establish the connection
+$conn = $dbConnection->connect();
 // Function to perform login
 function login($userType, $email, $password) {
     global $conn;

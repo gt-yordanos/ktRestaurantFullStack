@@ -1,15 +1,36 @@
 <?php
-// Database connection configuration
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "ktrestaurant";
+class DatabaseConnection {
+    private $servername;
+    private $username;
+    private $password;
+    private $dbname;
+    private $conn;
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+    // Constructor to initialize connection parameters
+    public function __construct() {
+        $this->servername = "localhost";
+        $this->username = "root";
+        $this->password = "";
+        $this->dbname = "ktrestaurant";
+    }
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    // Method to establish connection
+    public function connect() {
+        $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+
+        // Check connection
+        if ($this->conn->connect_error) {
+            die("Connection failed: " . $this->conn->connect_error);
+        }
+
+        return $this->conn;
+    }
+
+    // Method to close connection
+    public function close() {
+        if ($this->conn) {
+            $this->conn->close();
+        }
+    }
 }
 ?>

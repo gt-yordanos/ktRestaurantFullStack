@@ -8,7 +8,13 @@
 </head>
 <body>
 <?php
-include_once 'connection.php'; // Include the connection.php file
+// Include the connection.php file
+include_once 'connection.php';
+
+$dbConnection = new DatabaseConnection();
+
+// Establish the connection
+$conn = $dbConnection->connect();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if sign up button is clicked

@@ -1,8 +1,13 @@
 <?php
 session_start();
 
+// Include the connection.php file
 include_once 'connection.php';
 
+$dbConnection = new DatabaseConnection();
+
+// Establish the connection
+$conn = $dbConnection->connect();
 // Check if user is logged in
 $loggedIn = isset($_SESSION['email']);
 
@@ -415,11 +420,10 @@ if ($result->num_rows > 0) {
           <a href=""><i class='bx bxl-instagram-alt'></i></a>
           <a href=""><i class='bx bxl-facebook'></i></a>
           <a href=""><i class='bx bxl-tiktok'></i></a>
-          <a href=""><i class='bx bxl-github'></i></a>
-          <a href=""><i class='bx bxl-youtube'></i></a>
+          <a href=""><i class='bx bxl-twitter'></i></a>
         </div>
         <div class="details">
-          <div class="main-d">
+        <div class="main-d">
             <a href=""><i class='bx bxs-location-plus'></i>Inside the HU Stadium</a>
           </div>
           <div class="main-d">
@@ -433,15 +437,12 @@ if ($result->num_rows > 0) {
     </div>
   </section>
 
-  <!-- Copyright -->
+  <!-- Footer Bottom -->
 
   <section class="copyright">
     <p><span class="copyright-symbol">&copy;</span> 2024 KT Restaurant. All rights reserved.</p>
   </section>
-  
 </footer>
-    
-
 
   <script src="JS/Script.js"></script>
   <script>

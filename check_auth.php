@@ -1,7 +1,13 @@
 <?php
 session_start();
 
+// Include the connection.php file
 include_once 'connection.php';
+
+$dbConnection = new DatabaseConnection();
+
+// Establish the connection
+$conn = $dbConnection->connect();
 
 // Check if user is logged in
 $loggedIn = isset($_SESSION['email']);
